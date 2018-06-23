@@ -14,6 +14,7 @@ public:
 	int length();
 	int numberOf(char);
 	string longestConsecutive();
+	//string longestRepeated();
 };
 
 

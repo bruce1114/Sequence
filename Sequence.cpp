@@ -68,3 +68,24 @@ string Sequence::longestConsecutive()
 	if(tlon>lon) lon=tlon,pos=Length-tlon;
 	return s.substr(pos,lon);
 }
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

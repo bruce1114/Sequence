@@ -7,5 +7,5 @@ int main()
 {
 	string s="dna.txt";
 	Sequence se(s);
-	cout<<(se.longestConsecutive()).length();
+	cout<<se.longestConsecutive()<<endl;
 }
