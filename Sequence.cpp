@@ -5,6 +5,7 @@
 #include<memory.h>
 #include<cmath>
 #include<algorithm>
+#include<vector>
 using namespace std;
 
 Sequence::Sequence(string filename)
@@ -68,8 +69,31 @@ string Sequence::longestConsecutive()
 	if(tlon>lon) lon=tlon,pos=Length-tlon;
 	return s.substr(pos,lon);
 }
-	
 
+string Sequence::longestRepeated()
+{
+	vector<string>piece;
+	char *piece=s.data();
+	for(int i=Length-1;i>=0;--i) 
+	sort(piece.begin(),piece.end());
+	int lon=0,tlon=0,pos=0;
+	for(int i=0;i<Length-1;++i)
+	{
+		int l=min(piece[i].length(),piece[i+1].length());
+		for(int j=0;j<l;++j)
+		{
+			if(piece[i][j]==piece[i+1][j]) tlon++;
+			else
+			{
+				if(tlon>lon) lon=tlon,pos=i;
+				tlon=0;
+				break;
+			}
+		}
+		if(tlon>lon) lon=tlon,pos=i;
+	}
+	return piece[pos].substr(0,lon);
+}
 
 
 
