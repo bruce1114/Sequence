@@ -3,6 +3,10 @@
 #include<string>
 #include<iostream>
 using namespace std;
+typedef struct mark{
+	int n;
+	char *p;
+}mark;
 
 class Sequence{
 private:
@@ -10,6 +14,7 @@ private:
 	int dna[5];
 	int Length;
 public:
+	friend bool cmp(mark,mark);
 	Sequence(string);
 	int length();
 	int numberOf(char);

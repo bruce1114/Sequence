@@ -70,29 +70,31 @@ string Sequence::longestConsecutive()
 	return s.substr(pos,lon);
 }
 
+
+bool cmp(mark a,mark b)
+{
+	int i,j;
+	for(i=0,j=0;i<a.n&&j<b.n;++i,++j)
+	{
+		if((*(a.p+i))!=(*(b.p+j))) return (*(a.p+i))<(*(b.p+j));
+	}
+	return 0;
+}
+
 string Sequence::longestRepeated()
 {
-	vector<string>piece;
-	char *piece=s.data();
-	for(int i=Length-1;i>=0;--i) 
-	sort(piece.begin(),piece.end());
-	int lon=0,tlon=0,pos=0;
-	for(int i=0;i<Length-1;++i)
+	vector<mark>m;
+	char *sp=(char*)s.data();
+	for(int i=0;i<Length;++i)
 	{
-		int l=min(piece[i].length(),piece[i+1].length());
-		for(int j=0;j<l;++j)
-		{
-			if(piece[i][j]==piece[i+1][j]) tlon++;
-			else
-			{
-				if(tlon>lon) lon=tlon,pos=i;
-				tlon=0;
-				break;
-			}
-		}
-		if(tlon>lon) lon=tlon,pos=i;
+		mark temp;
+		temp.p=sp+i;
+		temp.n=Length-i;
+		m.push_back(temp);
 	}
-	return piece[pos].substr(0,lon);
+	cout<<1<<endl;
+	sort(m.begin(),m.end(),cmp);
+	cout<<2<<endl;
 }
 
 
