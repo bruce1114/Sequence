@@ -4,6 +4,7 @@
 #include<fstream>
 #include<memory.h>
 #include<cmath>
+#include<ctime>
 #include<algorithm>
 #include<vector>
 using namespace std;
@@ -71,30 +72,44 @@ string Sequence::longestConsecutive()
 }
 
 
-bool cmp(mark a,mark b)
+int cmp(const void *a,const void *b)
 {
-	int i,j;
-	for(i=0,j=0;i<a.n&&j<b.n;++i,++j)
+	mark A=*((mark*)(a)),B=*((mark*)(b));
+	int i;
+	for(i=0;i<A.n&&i<B.n;++i)
 	{
-		if((*(a.p+i))!=(*(b.p+j))) return (*(a.p+i))<(*(b.p+j));
+		if((*(A.p+i))!=(*(B.p+i))) return (*(A.p+i))-(*(B.p+i));
 	}
-	return 0;
+	return A.n-B.n;
 }
 
 string Sequence::longestRepeated()
 {
-	vector<mark>m;
+	mark *m=(mark*)new mark[Length+5];
 	char *sp=(char*)s.data();
 	for(int i=0;i<Length;++i)
 	{
-		mark temp;
-		temp.p=sp+i;
-		temp.n=Length-i;
-		m.push_back(temp);
+		m[i].p=sp+i;
+		m[i].n=Length-i;
 	}
-	cout<<1<<endl;
-	sort(m.begin(),m.end(),cmp);
-	cout<<2<<endl;
+	qsort(m,Length,sizeof(m[0]),cmp);
+	int pos = 0, lon = 0;
+	for (int i = 0; i < Length-1; ++i)
+	{
+		int j;
+		for (j = 0;j<m[i].n&&j<m[i+1].n; ++j)
+		{
+			if ((*(m[i].p + j)) != (*(m[i + 1].p + j)))
+			{
+				if (j > lon) lon = j, pos = i;
+				break;
+			}
+		}
+		if (j > lon) lon = j, pos = i;
+	}
+	string *stemp = new string(m[pos].p, lon);
+	delete []m;
+	return *stemp;
 }
 
 

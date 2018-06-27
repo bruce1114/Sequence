@@ -14,7 +14,7 @@ private:
 	int dna[5];
 	int Length;
 public:
-	friend bool cmp(mark,mark);
+	friend int cmp(const void*,const void*);
 	Sequence(string);
 	int length();
 	int numberOf(char);
