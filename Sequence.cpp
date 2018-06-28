@@ -8,6 +8,8 @@
 #include<algorithm>
 #include<vector>
 using namespace std;
+//char* Sequence::longestp=NULL;
+//int Sequence::longestn=0;
 
 Sequence::Sequence(string filename)
 {
@@ -74,12 +76,23 @@ string Sequence::longestConsecutive()
 
 int cmp(const void *a,const void *b)
 {
+	//char* &p=Sequence::longestp;
+	//int &n=Sequence::longestn;
 	mark A=*((mark*)(a)),B=*((mark*)(b));
 	int i;
 	for(i=0;i<A.n&&i<B.n;++i)
 	{
-		if((*(A.p+i))!=(*(B.p+i))) return (*(A.p+i))-(*(B.p+i));
+		if((*(A.p+i))!=(*(B.p+i)))
+		{
+			/*if(i>n)
+			{
+				n=i;
+				p=A.p;
+			}*/
+			return (*(A.p+i))-(*(B.p+i));
+		}
 	}
+	//if(i>n) n=i,p=A.p;
 	return A.n-B.n;
 }
 
@@ -92,7 +105,17 @@ string Sequence::longestRepeated()
 		m[i].p=sp+i;
 		m[i].n=Length-i;
 	}
+	//Sequence::longestp=NULL;
+	//Sequence::longestn=0;
 	qsort(m,Length,sizeof(m[0]),cmp);
+	//string *sstemp=new string(Sequence::longestp,Sequence::longestn);
+	//delete []m;
+	//return *sstemp;
+	/*for(int i=0;i<Length;++i)
+	{
+		for(int j=0;j<m[i].n;++j) cout<<*(m[i].p+j);
+		cout<<endl;
+	}*/
 	int pos = 0, lon = 0;
 	for (int i = 0; i < Length-1; ++i)
 	{

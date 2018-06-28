@@ -14,6 +14,8 @@ private:
 	int dna[5];
 	int Length;
 public:
+	//static char *longestp;
+	//static int longestn;
 	friend int cmp(const void*,const void*);
 	Sequence(string);
 	int length();
